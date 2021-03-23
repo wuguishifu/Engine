@@ -281,4 +281,20 @@ public class Input {
     public void setButtonDown(int button, boolean bool) {
         buttons[button] = bool;
     }
+
+    /**
+     * sets the window x position
+     * @param windowX - the new window x position
+     */
+    public void setWindowX(int windowX) {
+        this.windowX = windowX;
+    }
+
+    /**
+     * sets the window y position
+     * @param windowY - the new window y position
+     */
+    public void setWindowY(int windowY) {
+        this.windowY = windowY;
+    }
 }
