@@ -1,4 +1,4 @@
-package com.bramerlabs.engine.io.graphics;
+package com.bramerlabs.engine.graphics;
 
 import com.bramerlabs.engine.math.Vector2f;
 import com.bramerlabs.engine.math.Vector3f;

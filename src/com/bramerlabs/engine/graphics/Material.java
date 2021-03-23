@@ -1,4 +1,4 @@
-package com.bramerlabs.engine.io.graphics;
+package com.bramerlabs.engine.graphics;
 
 import com.bramerlabs.engine.io.file_util.FileUtils;
 import org.lwjgl.opengl.GL20;
