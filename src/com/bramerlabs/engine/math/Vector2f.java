@@ -13,8 +13,8 @@ public class Vector2f {
     /**
      * unit vectors in the e1 and e2 direction
      */
-    public static Vector2f e1 = new Vector2f(1, 0);
-    public static Vector2f e2 = new Vector2f(0, 1);
+    public static final Vector2f e1 = new Vector2f(1, 0);
+    public static final Vector2f e2 = new Vector2f(0, 1);
 
     /**
      * default constructor
@@ -42,6 +42,15 @@ public class Vector2f {
     public Vector2f(Vector2f v) {
         this.x = v.x;
         this.y = v.y;
+    }
+
+    /**
+     * constructs a 2-float vector from a float array
+     * @param v - the float array
+     */
+    public Vector2f(float[] v) {
+        x = v.length > 0 ? v[0] : 0;
+        y = v.length > 1 ? v[1] : 0;
     }
 
     /**
@@ -374,6 +383,14 @@ public class Vector2f {
      */
     public float getJ() {
         return this.y;
+    }
+
+    /**
+     * converts this 2-float vector to a float array
+     * @return - the float array
+     */
+    public float[] toFloatArray() {
+        return new float[]{x, y};
     }
 
     /**
