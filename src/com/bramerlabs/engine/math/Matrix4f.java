@@ -31,7 +31,20 @@ public class Matrix4f {
     public static Matrix4f identity() {
         Matrix4f result = new Matrix4f();
         for (int i = 0; i < SIZE; i++) {
-            result.elements[i * SIZE + i] = 1;
+            result.set(i, i, 1);
+        }
+        return result;
+    }
+
+    /**
+     * creates an identity matrix
+     * @param scaleFactor - the scale factor
+     * @return - identity matrix
+     */
+    public static Matrix4f identity(float scaleFactor) {
+        Matrix4f result = new Matrix4f();
+        for (int i = 0; i < SIZE; i++) {
+            result.set(i, i, scaleFactor);
         }
         return result;
     }
@@ -413,7 +426,7 @@ public class Matrix4f {
      */
     @Override
     public String toString() {
-        return "|" + get(0, 0) + "  " + get(0, 1) + "  " + get(0, 2) + "  " + get(0, 3) + "|\n" +
+        return  "|" + get(0, 0) + "  " + get(0, 1) + "  " + get(0, 2) + "  " + get(0, 3) + "|\n" +
                 "|" + get(1, 0) + "  " + get(1, 1) + "  " + get(1, 2) + "  " + get(1, 3) + "|\n" +
                 "|" + get(2, 0) + "  " + get(2, 1) + "  " + get(2, 2) + "  " + get(2, 3) + "|\n" +
                 "|" + get(3, 0) + "  " + get(3, 1) + "  " + get(3, 2) + "  " + get(3, 3) + "|\n";
