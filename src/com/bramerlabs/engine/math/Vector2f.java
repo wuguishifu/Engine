@@ -1,5 +1,6 @@
 package com.bramerlabs.engine.math;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class Vector2f {
@@ -82,6 +83,17 @@ public class Vector2f {
     }
 
     /**
+     * adds a vector to this vector
+     * @param v - the vector to add to this vector
+     * @return - this vector
+     */
+    public Vector2f add(Vector2f v) {
+        this.x += v.x;
+        this.y += v.y;
+        return this;
+    }
+
+    /**
      * adds to the components of a vector
      * @param v - the vector to add to
      * @param dx - the change in x component
@@ -136,6 +148,17 @@ public class Vector2f {
     }
 
     /**
+     * subtracts components of this vector by components of another vector
+     * @param v - the other vector
+     * @return - this vector
+     */
+    public Vector2f subtract(Vector2f v) {
+        this.x -= v.x;
+        this.y -= v.y;
+        return this;
+    }
+
+    /**
      * subtracts components from a vector
      * @param v - the vector
      * @param dx - the change in x position
@@ -165,6 +188,17 @@ public class Vector2f {
     public Vector2f multiply(float mx, float my) {
         this.x *= mx;
         this.y *= my;
+        return this;
+    }
+
+    /**
+     * multiplies the components of this vector by the components of another vector
+     * @param v - the other vector
+     * @return - this vector
+     */
+    public Vector2f multiply(Vector2f v) {
+        this.x *= v.x;
+        this.y *= v.y;
         return this;
     }
 
@@ -199,6 +233,17 @@ public class Vector2f {
     public Vector2f divide(float mx, float my) {
         this.x /= mx;
         this.y /= my;
+        return this;
+    }
+
+    /**
+     * divides the components of this vector by the components of another vector
+     * @param v - the other vector
+     * @return - this vector
+     */
+    public Vector2f divide(Vector2f v) {
+        this.x /= v.x;
+        this.y /= v.y;
         return this;
     }
 
@@ -270,15 +315,6 @@ public class Vector2f {
     }
 
     /**
-     * normalizes a vector
-     * @param v - the vector to be normalized
-     * @return - a new unit vector in the direction of v
-     */
-    public static Vector2f normalize(Vector2f v) {
-        return Vector2f.divide(v, new Vector2f(length(v)));
-    }
-
-    /**
      * normalizes this vector to a specific length
      * @param l - the new length of this vector
      * @return - this vector
@@ -287,6 +323,15 @@ public class Vector2f {
         this.x *= l / this.length();
         this.y *= l / this.length();
         return this;
+    }
+
+    /**
+     * normalizes a vector
+     * @param v - the vector to be normalized
+     * @return - a new unit vector in the direction of v
+     */
+    public static Vector2f normalize(Vector2f v) {
+        return Vector2f.divide(v, new Vector2f(length(v)));
     }
 
     /**
@@ -355,10 +400,13 @@ public class Vector2f {
 
     /**
      * converts this vector to a string
-     * @return - the string print of this vector
+     * @return - the string value of this vector
      */
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        DecimalFormat df2 = new DecimalFormat("#,###,###,#00.00");
+        String xS = df2.format(this.x);
+        String yS = df2.format(this.y);
+        return "(" + xS + ", " + yS + ")";
     }
 }
