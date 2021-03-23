@@ -8,6 +8,8 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 import java.io.IOException;
 
+import static org.lwjgl.opengl.GL11.GL_NEAREST;
+
 public class Material {
 
     // the path to the textures
@@ -39,20 +41,20 @@ public class Material {
     }
 
     /**
-     * creates the texture
+     * create the texture
      */
     public void create() {
-        // attempt to read the files
+        // attempt to load the textures
         try {
-            texture = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToBaseMap), GL46.GL_NEAREST);
-            specular = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToSpecularMap), GL46.GL_NEAREST);
-            normal = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToNormalMap), GL46.GL_NEAREST);
+            texture = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToBaseMap), GL_NEAREST);
+            specular = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToSpecularMap), GL_NEAREST);
+            normal = TextureLoader.getTexture(FORMAT, FileUtils.class.getModule().getResourceAsStream(pathToNormalMap), GL_NEAREST);
         } catch (IOException e) {
             e.printStackTrace();
-            System.err.print("Could not load texture.");
+            System.err.println("Error: could not load texture.");
         }
 
-        // get the size of the textures
+        // get the size
         width = texture.getWidth();
         height = texture.getHeight();
 

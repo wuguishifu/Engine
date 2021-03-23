@@ -69,43 +69,38 @@ public class Mesh {
 
         // add all the position data to the temp array
         for (int i = 0; i < vertices.length; i++) {
-            positionData[3 * i    ] = vertices[i].getPosition().x;
-            positionData[3 * i + 1] = vertices[i].getPosition().y;
-            positionData[3 * i + 2] = vertices[i].getPosition().z;
+            positionData[i * 3    ] = vertices[i].getPosition().getX();
+            positionData[i * 3 + 1] = vertices[i].getPosition().getY();
+            positionData[i * 3 + 2] = vertices[i].getPosition().getZ();
         }
 
-        // flip the data
+        // flip the data to make it handleable by OpenGL
         positionBuffer.put(positionData).flip();
 
         // store the position data in the position buffer object
-        this.pbo = this.storeData(positionBuffer, 0, 3);
+        pbo = storeData(positionBuffer, 0, 3);
     }
 
     /**
-     * helper method to create the normal buffer object
+     * helper method to create a buffer object for the vector normal to the surface at every vertex
      */
-    private void makeNormalBuffer() {
-        // preallocate memory
+    public void makeNormalBuffer() {
         FloatBuffer normalBuffer = MemoryUtil.memAllocFloat(vertices.length * 3);
-
-        // create a new temp array to store normal data
         float[] normalData = new float[vertices.length * 3];
-
-        // add all the normal data to the temp array
         for (int i = 0; i < vertices.length; i++) {
-            normalData[3 * i    ] = vertices[i].getNormal().x;
-            normalData[3 * i + 1] = vertices[i].getNormal().y;
-            normalData[3 * i + 2] = vertices[i].getNormal().z;
+            normalData[i * 3] = vertices[i].getNormal().getX();
+            normalData[i * 3 + 1] = vertices[i].getNormal().getY();
+            normalData[i * 3 + 2] = vertices[i].getNormal().getZ();
         }
-
-        // flip the data
         normalBuffer.put(normalData).flip();
 
-        // store the normal data in the normal buffer object
-        this.nbo = this.storeData(normalBuffer, 2, 3);
+        nbo = storeData(normalBuffer, 2, 3);
     }
 
-    public void makeTextureBuffer() {
+    /**
+     * helper method to create the texture buffer object
+     */
+    private void makeTextureBuffer() {
         // preallocate memory
         FloatBuffer textureBuffer = MemoryUtil.memAllocFloat(vertices.length * 2);
 
@@ -114,15 +109,15 @@ public class Mesh {
 
         // add all the texture coord data to the temp array
         for (int i = 0; i < vertices.length; i++) {
-            textureData[2 * i    ] = vertices[i].getTextureCoord().x;
-            textureData[2 * i + 1] = vertices[i].getTextureCoord().y;
+            textureData[i * 2    ] = vertices[i].getTextureCoord().getX();
+            textureData[i * 2 + 1] = vertices[i].getTextureCoord().getY();
         }
 
-        // flip the data
+        // flip the data to make it handleable by OpenGL
         textureBuffer.put(textureData).flip();
 
         // store the texture coord data in the texture buffer object
-        this.tbo = this.storeData(textureBuffer, 1, 2);
+        tbo = storeData(textureBuffer, 1, 2);
     }
 
     /**

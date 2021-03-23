@@ -1,18 +1,25 @@
 package com.bramerlabs.engine.objects;
 
+import com.bramerlabs.engine.graphics.Material;
 import com.bramerlabs.engine.graphics.Mesh;
 import com.bramerlabs.engine.math.Vector3f;
 
 public class RenderObject {
 
-    // the locational data of this object in 3d space
+    // the current global ID - used to make sure every ID is unique
+    public static int curID = 0;
+
+    // the ID of this object
+    public int ID;
+
+    // object location data
     private Vector3f position, rotation, scale;
 
     // the mesh that this object is made of
     private Mesh mesh;
 
     /**
-     * default constructor
+     * default constructor for specified values
      * @param mesh - the mesh that this object is made of
      * @param position - the position of this object
      * @param rotation - the rotation of this object
@@ -23,20 +30,22 @@ public class RenderObject {
         this.rotation = rotation;
         this.scale = scale;
         this.mesh = mesh;
+
+        generateID();
     }
 
     /**
-     * initializes the mesh in this object
+     * creates the mesh
      */
     public void createMesh() {
-        this.mesh.create();
+        mesh.create();
     }
 
     /**
-     * releases the render object
+     * releases the game object
      */
     public void destroy() {
-        this.mesh.destroy();
+        mesh.destroy();
     }
 
     /**
@@ -44,7 +53,23 @@ public class RenderObject {
      * @return - the position of this object
      */
     public Vector3f getPosition() {
-        return this.position;
+        return position;
+    }
+
+    /**
+     * sets the position of this game object
+     * @param position - the new position of this object
+     */
+    public void setPosition(Vector3f position) {
+        this.position = position;
+    }
+
+    /**
+     * sets the current ID
+     */
+    public void generateID() {
+        this.ID = curID;
+        curID += 1;
     }
 
     /**
@@ -52,7 +77,15 @@ public class RenderObject {
      * @return - the rotation of this object
      */
     public Vector3f getRotation() {
-        return this.rotation;
+        return rotation;
+    }
+
+    /**
+     * sets the rotation of this game object
+     * @param rotation - the new rotation
+     */
+    public void setRotation(Vector3f rotation) {
+        this.rotation = rotation;
     }
 
     /**
@@ -60,15 +93,30 @@ public class RenderObject {
      * @return - the scale of this object
      */
     public Vector3f getScale() {
-        return this.scale;
+        return scale;
+    }
+
+    /**
+     * sets the scale of this game object
+     * @param scale - the new scale
+     */
+    public void setScale(Vector3f scale) {
+        this.scale = scale;
     }
 
     /**
      * getter method
-     * @return - the mesh of this object
+     * @return - the mesh that this object is made of
      */
     public Mesh getMesh() {
-        return this.mesh;
+        return mesh;
     }
 
+    /**
+     * getter method
+     * @return - the ID of this object
+     */
+    public int getID() {
+        return this.ID;
+    }
 }
