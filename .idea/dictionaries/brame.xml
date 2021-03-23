@@ -1,10 +1,12 @@
 <component name="ProjectDictionaryState">
   <dictionary name="brame">
     <words>
+      <w>attribs</w>
       <w>bitangent</w>
       <w>coord</w>
       <w>framerate</w>
       <w>glfw</w>
+      <w>shaders</w>
     </words>
   </dictionary>
 </component>
