@@ -48,10 +48,12 @@ public class Mesh {
         GL46.glBindVertexArray(vao);
 
         // create the buffers
-        makePositionBuffer();
-        makeNormalBuffer();
-        makeTextureBuffer();
-        makeTangentBuffer();
+        makePositionBuffer(); // position
+        makeNormalBuffer();   // normals
+        makeTextureBuffer();  // texture coords
+        makeTangentBuffer();  // tangents and bitangents
+
+        // make the draw order buffer
         makeIndexBuffer();
     }
 
@@ -326,6 +328,14 @@ public class Mesh {
      */
     public int getBBO() {
         return this.bbo;
+    }
+
+    /**
+     * getter method
+     * @return - the index buffer object
+     */
+    public int getIBO() {
+        return this.ibo;
     }
 
     /**

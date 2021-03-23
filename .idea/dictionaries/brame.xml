@@ -3,7 +3,9 @@
     <words>
       <w>attribs</w>
       <w>bitangent</w>
+      <w>bitangents</w>
       <w>coord</w>
+      <w>coords</w>
       <w>framerate</w>
       <w>glfw</w>
       <w>shaders</w>
