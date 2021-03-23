@@ -1,5 +1,6 @@
 package com.bramerlabs.engine.math;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
@@ -68,9 +69,20 @@ public class Vector3f {
      * will be constructed out of the first 3.
      */
     public Vector3f(float[] v) {
-        x = v.length > 0 ? v[0] : 0;
-        y = v.length > 1 ? v[1] : 0;
-        z = v.length > 2 ? v[2] : 0;
+        this.x = v.length > 0 ? v[0] : 0;
+        this.y = v.length > 1 ? v[1] : 0;
+        this.z = v.length > 2 ? v[2] : 0;
+    }
+
+    /**
+     * constructor from a java awt color
+     * makes a vector in the form (r, g, b)
+     * @param c - the color
+     */
+    public Vector3f(Color c) {
+        this.x = c.getRed();
+        this.y = c.getGreen();
+        this.z = c.getBlue();
     }
 
     /**
