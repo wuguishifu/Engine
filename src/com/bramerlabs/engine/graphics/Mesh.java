@@ -25,7 +25,8 @@ public class Mesh {
         tan, // tangent buffer
         bbo, // bitangent buffer
         tbo, // texture buffer
-        ibo; // index buffer
+        ibo, // index buffer
+        cbo; // color buffer
 
     /**
      * default constructor
@@ -52,6 +53,7 @@ public class Mesh {
         makeNormalBuffer();   // normals
         makeTextureBuffer();  // texture coords
         makeTangentBuffer();  // tangents and bitangents
+        makeColorBuffer();
 
         // make the draw order buffer
         makeIndexBuffer();
@@ -205,6 +207,23 @@ public class Mesh {
     }
 
     /**
+     * helper method to create the color buffer object
+     */
+    public void makeColorBuffer() {
+        FloatBuffer colorBuffer = MemoryUtil.memAllocFloat(vertices.length * 4);
+        float[] colorData = new float[vertices.length * 4];
+        for (int i = 0; i < vertices.length; i++) {
+            colorData[i * 4] = vertices[i].getColor().getX();
+            colorData[i * 4 + 1] = vertices[i].getColor().getY();
+            colorData[i * 4 + 2] = vertices[i].getColor().getZ();
+            colorData[i * 4 + 3] = vertices[i].getColor().getW();
+        }
+        colorBuffer.put(colorData).flip();
+
+        cbo = storeData(colorBuffer, 5, 4);
+    }
+
+    /**
      * helper method to create the index buffer object
      */
     private void makeIndexBuffer() {
@@ -298,7 +317,7 @@ public class Mesh {
      * @return - the texture buffer object
      */
     public int getCBO() {
-        return this.tbo;
+        return this.cbo;
     }
 
     /**
@@ -313,8 +332,8 @@ public class Mesh {
      * getter method
      * @return - the tangent buffer object
      */
-    public int getTBO() {
-        return this.tan;
+    public int getTAN() {
+        return this.tbo;
     }
 
     /**

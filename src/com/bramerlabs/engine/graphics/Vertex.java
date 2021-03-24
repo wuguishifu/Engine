@@ -2,6 +2,7 @@ package com.bramerlabs.engine.graphics;
 
 import com.bramerlabs.engine.math.Vector2f;
 import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.Vector4f;
 
 public class Vertex {
 
@@ -18,6 +19,9 @@ public class Vertex {
     // the texture coordinate of this vertex
     private Vector2f textureCoord;
 
+    // color of this vertex
+    private Vector4f color;
+
     /**
      * default constructor
      * @param position - the position of this vertex
@@ -32,6 +36,9 @@ public class Vertex {
         this.normal = normal;
         this.tangent = tangent;
         this.bitangent = bitangent;
+
+        // default color, unused for texture vertices
+        this.color = new Vector4f(1, 1, 1, 1);
 
         this.hasTangent = true;
         this.hasBitangent = true;
@@ -48,8 +55,31 @@ public class Vertex {
         this.textureCoord = textureCoord;
         this.normal = normal;
 
+        // default color, unused for texture vertices
+        this.color = new Vector4f(1, 1, 1, 1);
+
         this.hasTangent = false;
         this.hasBitangent = false;
+    }
+
+    /**
+     * constructor for position, color, and normal
+     * @param position - the position of this vertex
+     * @param color - the color of this vertex
+     * @param normal - the vector normal to this vertex
+     */
+    public Vertex(Vector3f position, Vector4f color, Vector3f normal) {
+        this.position = position;
+        this.color = color;
+        this.normal = normal;
+
+        // default tangent and bitangent, unused for color vertices
+        this.tangent = new Vector3f(0);
+        this.bitangent = new Vector3f(0);
+        this.textureCoord = new Vector2f(0);
+
+        this.hasTangent = true;
+        this.hasBitangent = true;
     }
 
     /**
@@ -122,5 +152,13 @@ public class Vertex {
      */
     public Vector2f getTextureCoord() {
         return textureCoord;
+    }
+
+    /**
+     * getter method
+     * @return - the color of this vertex
+     */
+    public Vector4f getColor() {
+        return this.color;
     }
 }

@@ -2,11 +2,13 @@ package com.bramerlabs.engine.test;
 
 import com.bramerlabs.engine.graphics.Camera;
 import com.bramerlabs.engine.graphics.Shader;
-import com.bramerlabs.engine.graphics.renderers.TextureRenderer;
+import com.bramerlabs.engine.graphics.renderers.Renderer;
 import com.bramerlabs.engine.io.window.Input;
 import com.bramerlabs.engine.io.window.Window;
 import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.Vector4f;
 import com.bramerlabs.engine.objects.default_objects.Box;
+import com.bramerlabs.engine.objects.default_objects.Cube;
 import org.lwjgl.opengl.GL46;
 
 public class TestMain implements Runnable {
@@ -21,16 +23,17 @@ public class TestMain implements Runnable {
     private Camera camera;
 
     // shaders to use
-    private Shader shader;
+    private Shader textureShader, lightShader;
 
     // renderers to use
-    private TextureRenderer renderer;
+    private Renderer renderer;
 
     // the position of the light source
     private Vector3f lightPosition = new Vector3f(1.0f, 2.0f, 3.0f);
 
     // test objects to render
     private Box blank, box, wall;
+    private Cube lightCube;
 
     /**
      * the main runnable method
@@ -74,13 +77,17 @@ public class TestMain implements Runnable {
         window.create();
 
         // initialize the shader
-        shader = new Shader(
-                "shaders.texture/vertex.glsl", // path to the vertex shader
-                "shaders.texture/fragment.glsl" // path to the fragment shader
+        textureShader = new Shader(
+                "shaders/texture/vertex.glsl", // path to the vertex shader
+                "shaders/texture/fragment.glsl" // path to the fragment shader
+        ).create();
+        lightShader = new Shader(
+                "shaders/light/vertex.glsl",
+                "shaders/light/fragment.glsl"
         ).create();
 
         // initialize the renderers
-        renderer = new TextureRenderer(window, lightPosition);
+        renderer = new Renderer(window, lightPosition);
 
         // initialize the camera
         camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), input);
@@ -108,6 +115,9 @@ public class TestMain implements Runnable {
         blank.createMesh();
         box.createMesh();
         wall.createMesh();
+
+        lightCube = new Cube(lightPosition, new Vector3f(0.0f), new Vector3f(0.5f), new Vector4f(1.0f));
+        lightCube.createMesh();
     }
 
     /**
@@ -129,9 +139,10 @@ public class TestMain implements Runnable {
      */
     private void render() {
         // render the objects
-        renderer.renderMesh(blank, camera, shader);
-        renderer.renderMesh(box, camera, shader);
-        renderer.renderMesh(wall, camera, shader);
+        renderer.renderMesh(blank, camera, textureShader, Renderer.TEXTURE);
+        renderer.renderMesh(box, camera, textureShader, Renderer.TEXTURE);
+        renderer.renderMesh(wall, camera, textureShader, Renderer.TEXTURE);
+        renderer.renderMesh(lightCube, camera, lightShader, Renderer.LIGHT);
 
         // swap the frame buffers
         window.swapBuffers();
@@ -148,7 +159,8 @@ public class TestMain implements Runnable {
         box.destroy();
 
         // release the shaders
-        shader.destroy();
+        textureShader.destroy();
+        lightShader.destroy();
     }
 
 }

@@ -11,7 +11,13 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL30;
 
-public class TextureRenderer {
+public class Renderer {
+
+    /** render codes */
+    public static final int
+            LIGHT =     0x1, // light rendering
+            TEXTURE =   0x2, // texture rendering
+            NORMAL =    0x3; // normal rendering
 
     // the window to render to
     private final Window window;
@@ -27,7 +33,7 @@ public class TextureRenderer {
      * @param window - the window to render to
      * @param lightPosition - the position of the light source
      */
-    public TextureRenderer(Window window, Vector3f lightPosition) {
+    public Renderer(Window window, Vector3f lightPosition) {
         this.window = window;
         this.lightPosition = lightPosition;
     }
@@ -38,27 +44,36 @@ public class TextureRenderer {
      * @param camera - the camera perspective
      * @param shader - the shader to use to render
      */
-    public void renderMesh(RenderObject object, Camera camera, Shader shader) {
+    public void renderMesh(RenderObject object, Camera camera, Shader shader, int type) {
         // bind the vertex array
         GL30.glBindVertexArray(object.getMesh().getVAO());
 
         // enable the vertex attribute arrays
-        GL30.glEnableVertexAttribArray(0); // position buffer
-        GL30.glEnableVertexAttribArray(1); // texture buffer
-        GL30.glEnableVertexAttribArray(2); // normal buffer
-        GL30.glEnableVertexAttribArray(3); // tangent buffer
-        GL30.glEnableVertexAttribArray(4); // bitangent buffer
+        switch (type) {
+            case LIGHT:
+                GL30.glEnableVertexAttribArray(0); // position buffer
+                GL30.glEnableVertexAttribArray(5); // color buffer
+                break;
+            case TEXTURE:
+                GL30.glEnableVertexAttribArray(0); // position buffer
+                GL30.glEnableVertexAttribArray(1); // texture buffer
+                GL30.glEnableVertexAttribArray(2); // normal buffer
+                GL30.glEnableVertexAttribArray(3); // tangent buffer
+                GL30.glEnableVertexAttribArray(4); // bitangent buffer
+        }
 
         // bind the index array draw order
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, object.getMesh().getIBO());
 
-        // bind the textures
-        GL13.glActiveTexture(GL13.GL_TEXTURE0); // the base color map
-        GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getTextureID());
-        GL13.glActiveTexture(GL13.GL_TEXTURE0 + 1); // the specular map
-        GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getSpecularID());
-        GL13.glActiveTexture(GL13.GL_TEXTURE0 + 2); // the normal map
-        GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getNormalID());
+        // bind the textures if they exist
+        if (type == TEXTURE) {
+            GL13.glActiveTexture(GL13.GL_TEXTURE0); // the base color map
+            GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getTextureID());
+            GL13.glActiveTexture(GL13.GL_TEXTURE0 + 1); // the specular map
+            GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getSpecularID());
+            GL13.glActiveTexture(GL13.GL_TEXTURE0 + 2); // the normal map
+            GL13.glBindTexture(GL13.GL_TEXTURE_2D, object.getMesh().getMaterial().getNormalID());
+        }
 
         // bind the shader
         shader.bind();
@@ -82,11 +97,18 @@ public class TextureRenderer {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
 
         // disable the vertex attributes
-        GL30.glDisableVertexAttribArray(0); // position buffer
-        GL30.glDisableVertexAttribArray(1); // texture buffer
-        GL30.glDisableVertexAttribArray(2); // normal buffer
-        GL30.glDisableVertexAttribArray(3); // tangent buffer
-        GL30.glDisableVertexAttribArray(4); // bitangent buffer
+        switch (type) {
+            case LIGHT:
+                GL30.glDisableVertexAttribArray(0); // position buffer
+                GL30.glDisableVertexAttribArray(5); // color buffer
+                break;
+            case TEXTURE:
+                GL30.glDisableVertexAttribArray(0); // position buffer
+                GL30.glDisableVertexAttribArray(1); // texture buffer
+                GL30.glDisableVertexAttribArray(2); // normal buffer
+                GL30.glDisableVertexAttribArray(3); // tangent buffer
+                GL30.glDisableVertexAttribArray(4); // bitangent buffer
+        }
 
         // unbind the vertex array
         GL30.glBindVertexArray(0);

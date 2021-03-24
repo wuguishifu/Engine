@@ -22,6 +22,7 @@ uniform mat4 vProjection;
 
 // the main runnable
 void main() {
+
     // set the position of this vertex
     gl_Position = vProjection * vView * vModel * vec4(vPosition, 1.0);
 
