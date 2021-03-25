@@ -8,14 +8,14 @@ layout(location = 5) in vec4 vColor;
 out vec4 passColor;
 
 // model, view, projection matrices
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
+uniform mat4 vModel;
+uniform mat4 vView;
+uniform mat4 vProjection;
 
 // main runnable method
 void main() {
     // set the position of this vertex
-    gl_Position = projection * view * model * vec4(vPosition, 1.0);
+    gl_Position = vProjection * vView * vModel * vec4(vPosition, 1.0);
 
     // pass the color
     passColor = vColor;

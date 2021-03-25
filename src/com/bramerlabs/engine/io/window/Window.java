@@ -89,6 +89,7 @@ public class Window {
         GLFW.glfwDefaultWindowHints();
         GLFW.glfwWindowHint(GLFW.GLFW_MAXIMIZED, GLFW.GLFW_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_DECORATED, GLFW.GLFW_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, 4); // used for antialiasing
 
         // create the window
         this.windowHandle = GLFW.glfwCreateWindow(
@@ -129,6 +130,9 @@ public class Window {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glDepthFunc(GL11.GL_LESS);
+
+        // enable antialiasing
+        GL11.glEnable(GL46.GL_MULTISAMPLE);
 
         // enable blending
         GL11.glEnable(GL11.GL_BLEND);
