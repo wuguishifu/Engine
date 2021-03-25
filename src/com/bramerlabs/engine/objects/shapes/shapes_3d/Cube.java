@@ -1,4 +1,4 @@
-package com.bramerlabs.engine.objects.default_objects;
+package com.bramerlabs.engine.objects.shapes.shapes_3d;
 
 import com.bramerlabs.engine.graphics.Mesh;
 import com.bramerlabs.engine.graphics.Vertex;

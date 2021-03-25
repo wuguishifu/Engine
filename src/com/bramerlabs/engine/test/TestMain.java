@@ -10,7 +10,7 @@ import com.bramerlabs.engine.io.window.Window;
 import com.bramerlabs.engine.math.Vector3f;
 import com.bramerlabs.engine.math.Vector4f;
 import com.bramerlabs.engine.objects.default_objects.Box;
-import com.bramerlabs.engine.objects.default_objects.Cube;
+import com.bramerlabs.engine.objects.shapes.shapes_3d.Cube;
 import org.lwjgl.opengl.GL46;
 
 public class TestMain implements Runnable {
