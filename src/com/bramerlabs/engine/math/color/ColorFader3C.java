@@ -1,6 +1,6 @@
 package com.bramerlabs.engine.math.color;
 
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 
 import java.awt.*;
 

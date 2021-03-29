@@ -1,5 +1,7 @@
-package com.bramerlabs.engine.math;
+package com.bramerlabs.engine.math.matrix;
 
+import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;

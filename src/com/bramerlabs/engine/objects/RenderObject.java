@@ -1,7 +1,7 @@
 package com.bramerlabs.engine.objects;
 
 import com.bramerlabs.engine.graphics.Mesh;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 
 public class RenderObject {
 

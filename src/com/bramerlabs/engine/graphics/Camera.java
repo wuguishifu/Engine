@@ -1,7 +1,7 @@
 package com.bramerlabs.engine.graphics;
 
 import com.bramerlabs.engine.io.window.Input;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 public class Camera {

@@ -3,8 +3,8 @@ package com.bramerlabs.engine.objects.default_objects;
 import com.bramerlabs.engine.graphics.Material;
 import com.bramerlabs.engine.graphics.Mesh;
 import com.bramerlabs.engine.graphics.Vertex;
-import com.bramerlabs.engine.math.Vector2f;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector2f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 import com.bramerlabs.engine.objects.RenderObject;
 
 public class Box extends RenderObject {

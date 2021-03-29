@@ -1,34 +1,37 @@
-package com.bramerlabs.engine.math;
+package com.bramerlabs.engine.math.key;
 
 import java.util.Objects;
 
-public class Key3 {
+public class Key4 {
 
     /**
      * the values of this key
      */
-    public int x, y, z;
+    public int x, y, z, w;
 
     /**
      * default constructor
-     * @param x - the x value
-     * @param y - the y value
-     * @param z - the z value
+     * @param x - the x value of this key
+     * @param y - the y value of this key
+     * @param z - the z value of this key
+     * @param w - the w value of this key
      */
-    public Key3(int x, int y, int z) {
+    public Key4(int x, int y, int z, int w) {
         this.x = x;
         this.y = y;
         this.z = z;
+        this.w = w;
     }
 
     /**
      * constructor from int array
      * @param i - the int array
      */
-    public Key3(int[] i) {
+    public Key4(int[] i) {
         this.x = i.length > 0 ? i[0] : 0;
         this.y = i.length > 1 ? i[1] : 0;
         this.z = i.length > 2 ? i[2] : 0;
+        this.w = i.length > 3 ? i[3] : 0;
     }
 
     /**
@@ -80,6 +83,22 @@ public class Key3 {
     }
 
     /**
+     * getter method
+     * @return - the w value of this key
+     */
+    public int getW() {
+        return this.w;
+    }
+
+    /**
+     * sets the w value of this key
+     * @param w - the new w value
+     */
+    public void setW(int w) {
+        this.w = w;
+    }
+
+    /**
      * determines if this key is equal to another object
      * @param o - the other object
      * @return - true if the other object is a key with the same x, y value of these objects
@@ -87,11 +106,12 @@ public class Key3 {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Key3)) return false;
-        Key3 key3 = (Key3) o;
-        return x == key3.x &&
-                y == key3.y &&
-                z == key3.z;
+        if (!(o instanceof Key4)) return false;
+        Key4 key4 = (Key4) o;
+        return x == key4.x &&
+                y == key4.y &&
+                z == key4.z &&
+                w == key4.w;
     }
 
     /**
@@ -100,16 +120,15 @@ public class Key3 {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, z);
+        return Objects.hash(x, y, z, w);
     }
 
     /**
      * converts this key to a string
-     * @return - the string representation of this key in the form 'k(x, y, z)'
+     * @return - the string representation of this key in the form 'k(x, y, z, w)'
      */
     @Override
     public String toString() {
-        return "k(" + x + ", " + y + ", " + z + ")";
+        return "k(" + x + ", " + y + ", " + z + ", " + w + ")";
     }
 }
-

@@ -1,8 +1,7 @@
 package com.bramerlabs.engine.objects.shapes.shapes_2d;
 
 import com.bramerlabs.engine.graphics.Mesh;
-import com.bramerlabs.engine.math.Triangle;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 import com.bramerlabs.engine.objects.RenderObject;
 
 import java.util.ArrayList;

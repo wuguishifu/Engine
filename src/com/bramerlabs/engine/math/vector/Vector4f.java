@@ -1,4 +1,4 @@
-package com.bramerlabs.engine.math;
+package com.bramerlabs.engine.math.vector;
 
 import java.text.DecimalFormat;
 import java.util.Objects;

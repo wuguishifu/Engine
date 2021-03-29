@@ -1,8 +1,8 @@
 package com.bramerlabs.engine.graphics;
 
-import com.bramerlabs.engine.math.Vector2f;
-import com.bramerlabs.engine.math.Vector3f;
-import com.bramerlabs.engine.math.Vector4f;
+import com.bramerlabs.engine.math.vector.Vector2f;
+import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
 
 public class Vertex {
 

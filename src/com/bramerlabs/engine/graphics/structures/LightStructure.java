@@ -1,6 +1,6 @@
 package com.bramerlabs.engine.graphics.structures;
 
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 
 public class LightStructure {
 

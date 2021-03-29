@@ -1,13 +1,12 @@
 package com.bramerlabs.engine.io.window;
 
 import com.bramerlabs.engine.EngineConstants;
-import com.bramerlabs.engine.math.Matrix4f;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.matrix.Matrix4f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import org.lwjgl.opengl.GL46;
 
 import java.awt.*;

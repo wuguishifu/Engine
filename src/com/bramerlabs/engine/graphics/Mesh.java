@@ -1,7 +1,7 @@
 package com.bramerlabs.engine.graphics;
 
-import com.bramerlabs.engine.math.Vector2f;
-import com.bramerlabs.engine.math.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector2f;
+import com.bramerlabs.engine.math.vector.Vector3f;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.MemoryUtil;
 

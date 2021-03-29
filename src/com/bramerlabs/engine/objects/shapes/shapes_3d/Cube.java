@@ -2,8 +2,8 @@ package com.bramerlabs.engine.objects.shapes.shapes_3d;
 
 import com.bramerlabs.engine.graphics.Mesh;
 import com.bramerlabs.engine.graphics.Vertex;
-import com.bramerlabs.engine.math.Vector3f;
-import com.bramerlabs.engine.math.Vector4f;
+import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
 import com.bramerlabs.engine.objects.RenderObject;
 
 public class Cube extends RenderObject {

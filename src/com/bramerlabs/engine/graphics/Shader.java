@@ -1,10 +1,10 @@
 package com.bramerlabs.engine.graphics;
 
 import com.bramerlabs.engine.io.file_util.FileUtils;
-import com.bramerlabs.engine.math.Matrix4f;
-import com.bramerlabs.engine.math.Vector2f;
-import com.bramerlabs.engine.math.Vector3f;
-import com.bramerlabs.engine.math.Vector4f;
+import com.bramerlabs.engine.math.matrix.Matrix4f;
+import com.bramerlabs.engine.math.vector.Vector2f;
+import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryUtil;
