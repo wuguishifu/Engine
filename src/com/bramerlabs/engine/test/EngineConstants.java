@@ -1,4 +1,4 @@
-package com.bramerlabs.engine;
+package com.bramerlabs.engine.test;
 
 import com.bramerlabs.engine.math.vector.Vector3f;
 
