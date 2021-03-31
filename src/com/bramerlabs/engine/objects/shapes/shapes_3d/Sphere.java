@@ -33,7 +33,7 @@ public class Sphere extends RenderObject {
      * create a sphere
      * @return - a new sphere
      */
-    public static Sphere makeSphere(Vector3f position, Vector4f color, float radius) {
+    public static Sphere getInstance(Vector3f position, Vector4f color, float radius) {
         return new Sphere(generateMesh(color, radius), position, new Vector3f(0), new Vector3f(1));
     }
 

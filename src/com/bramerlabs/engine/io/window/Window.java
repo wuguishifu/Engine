@@ -1,6 +1,6 @@
 package com.bramerlabs.engine.io.window;
 
-import com.bramerlabs.engine.EngineConstants;
+import com.bramerlabs.engine.test.EngineConstants;
 import com.bramerlabs.engine.math.matrix.Matrix4f;
 import com.bramerlabs.engine.math.vector.Vector3f;
 import org.lwjgl.glfw.GLFW;

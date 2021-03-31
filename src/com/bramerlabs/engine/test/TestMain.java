@@ -7,10 +7,12 @@ import com.bramerlabs.engine.graphics.structures.LightStructure;
 import com.bramerlabs.engine.graphics.structures.MaterialStructure;
 import com.bramerlabs.engine.io.window.Input;
 import com.bramerlabs.engine.io.window.Window;
+import com.bramerlabs.engine.math.matrix.Matrix4f;
 import com.bramerlabs.engine.math.vector.Vector3f;
 import com.bramerlabs.engine.math.vector.Vector4f;
 import com.bramerlabs.engine.objects.default_objects.Box;
 import com.bramerlabs.engine.objects.shapes.shapes_3d.Cube;
+import com.bramerlabs.engine.objects.shapes.shapes_3d.Sphere;
 import org.lwjgl.opengl.GL46;
 
 public class TestMain implements Runnable {
@@ -31,11 +33,11 @@ public class TestMain implements Runnable {
     private Renderer renderer;
 
     // the position of the light source
-    private Vector3f lightPosition = new Vector3f(1.0f, 2.0f, 3.0f);
+    private Vector3f lightPosition = new Vector3f(0, 2.0f, 3.0f);
 
     // test objects to render
-    private Box box, wall;
-    private Cube blank, lightCube;
+    private Sphere sphere, sphere1, sphere2;
+    private Cube lightCube;
     private MaterialStructure material;
     private LightStructure light;
 
@@ -105,24 +107,26 @@ public class TestMain implements Runnable {
         camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), input);
         camera.setFocus(new Vector3f(0, 0, 0));
 
+        // test rotation matrix
+//        Matrix4f rotation = Matrix4f.rotate(45, new Vector3f(0, 1, 0));
+//        Vector3f position1 = new Vector3f(1, 0 ,0);
+//        Vector3f position2 = Matrix4f.multiply(rotation, new Vector4f(position1, 1.0f)).xyz();
+
         // initialize objects
-        blank = new Cube(
-                new Vector3f(-2, 0, 0),
+        sphere = Sphere.getInstance(
                 new Vector3f(0, 0, 0),
-                new Vector3f(1, 1, 1),
-                new Vector4f(0.5f, 0.5f, 0.5f, 1.0f)
+                new Vector4f(0.5f, 0.5f, 0.5f, 1.0f),
+                0.5f
         );
-        box = new Box(
-                new Vector3f(0, 0, 0),
-                new Vector3f(0, 0, 0),
-                new Vector3f(1, 1, 1),
-                "textures/box"
+        sphere1 = Sphere.getInstance(
+                new Vector3f(1, 0, 0),
+                new Vector4f(0.5f, 0, 0.5f, 1.0f),
+                0.25f
         );
-        wall = new Box(
-                new Vector3f(2, 0, 0),
-                new Vector3f(0, 0, 0),
-                new Vector3f(1, 1, 1),
-                "textures/wall"
+        sphere2 = Sphere.getInstance(
+                new Vector3f(0, 0, 1),
+                new Vector4f(0.5f, 0, 0.5f, 1.0f),
+                0.25f
         );
         lightCube = new Cube(
                 lightPosition,
@@ -132,9 +136,9 @@ public class TestMain implements Runnable {
         );
 
         // initialize the object meshes
-        blank.createMesh();
-        box.createMesh();
-        wall.createMesh();
+        sphere.createMesh();
+        sphere1.createMesh();
+        sphere2.createMesh();
         lightCube.createMesh();
 
         light = new LightStructure(
@@ -145,6 +149,16 @@ public class TestMain implements Runnable {
         material = new MaterialStructure(32, 1, 1);
     }
 
+    Matrix4f rotation11 = Matrix4f.rotate(5, new Vector3f(0, 1, 0));
+    Matrix4f rotation12 = Matrix4f.rotate(5, new Vector3f(0, 0, 1));
+    Matrix4f rotation13 = Matrix4f.rotate(5, new Vector3f(1, 0, 0));
+    Matrix4f rotation1 = Matrix4f.multiply(rotation11, rotation12);
+    Matrix4f rotation_1 = Matrix4f.multiply(rotation1, rotation13);
+
+    Matrix4f rotation21 = Matrix4f.rotate(5, new Vector3f(0, 1, 0));
+    Matrix4f rotation22 = Matrix4f.rotate(5, new Vector3f(1, 0, 0));
+    Matrix4f rotation2 = Matrix4f.multiply(rotation21, rotation22);
+
     /**
      * updates the program
      */
@@ -154,6 +168,10 @@ public class TestMain implements Runnable {
         // clear the screen and mask bits
         GL46.glClearColor(window.r, window.g, window.b, 1.0f);
         GL46.glClear(GL46.GL_COLOR_BUFFER_BIT | GL46.GL_DEPTH_BUFFER_BIT);
+
+        // update render objects
+        sphere1.setPosition(Matrix4f.multiply(rotation1, new Vector4f(sphere1.getPosition(), 1.0f)).xyz());
+        sphere2.setPosition(Matrix4f.multiply(rotation2, new Vector4f(sphere2.getPosition(), 1.0f)).xyz());
 
         // update the camera
 //        camera.updateArcball();
@@ -167,9 +185,9 @@ public class TestMain implements Runnable {
     private void render() {
         // render the objects
 //        renderer.renderMesh(blank, camera, colorShader, Renderer.COLOR);
-        renderer.renderStructuredMesh(blank, camera, structureShader, material, light);
-        renderer.renderMesh(box, camera, textureShader, Renderer.TEXTURE);
-        renderer.renderMesh(wall, camera, textureShader, Renderer.TEXTURE);
+        renderer.renderStructuredMesh(sphere, camera, structureShader, material, light);
+        renderer.renderStructuredMesh(sphere1, camera, structureShader, material, light);
+//        renderer.renderStructuredMesh(sphere2, camera, structureShader, material, light);
         renderer.renderMesh(lightCube, camera, lightShader, Renderer.LIGHT);
 
         // swap the frame buffers
@@ -183,8 +201,10 @@ public class TestMain implements Runnable {
         // release the window
         window.destroy();
 
-        // release the objects
-        box.destroy();
+        sphere.destroy();
+        sphere1.destroy();
+        sphere2.destroy();
+        lightCube.destroy();
 
         // release the shaders
         textureShader.destroy();
