@@ -1,5 +1,7 @@
 package com.bramerlabs.engine.math.vector;
 
+import com.bramerlabs.engine.math.matrix.Matrix4f;
+
 import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -469,6 +471,30 @@ public class Vector3f {
         val = Float.intBitsToFloat(i);
         val *= (1.5f - xHalf * val * val);
         return val;
+    }
+
+    /**
+     * rotates this vector around an axis
+     * @param angle - the angle to rotate
+     * @param axis - the axis
+     */
+    public void rotate(float angle, Vector3f axis) {
+        Matrix4f rotationMatrix = Matrix4f.rotate(angle, axis);
+        Vector4f result = Matrix4f.multiply(rotationMatrix, new Vector4f(this, 1.0f));
+        this.set(result.x, result.y, result.z);
+    }
+
+    /**
+     * rotates a vector around an axis
+     * @param v - the vector to rotate
+     * @param angle - the angle to rotate it by
+     * @param axis - the axis to rotate it around
+     * @return - the new rotated vector
+     */
+    public static Vector3f rotate(Vector3f v, float angle, Vector3f axis) {
+        Matrix4f rotationMatrix = Matrix4f.rotate(angle, axis);
+        Vector4f result = Matrix4f.multiply(rotationMatrix, new Vector4f(v, 1.0f));
+        return result.xyz();
     }
 
     /**
