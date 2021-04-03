@@ -3,37 +3,22 @@ package com.bramerlabs.solar;
 import com.bramerlabs.engine.graphics.Camera;
 import com.bramerlabs.engine.graphics.Shader;
 import com.bramerlabs.engine.graphics.renderers.Renderer;
-import com.bramerlabs.engine.graphics.structures.LightStructure;
-import com.bramerlabs.engine.graphics.structures.MaterialStructure;
 import com.bramerlabs.engine.io.window.Input;
 import com.bramerlabs.engine.io.window.Window;
 import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
+import com.bramerlabs.engine.objects.shapes.shapes_3d.Sphere;
 import org.lwjgl.opengl.GL46;
 
 public class Main implements Runnable {
 
-    // the object to track inputs
     private final Input input = new Input();
-
-    // the window to render to
     private final Window window = new Window(input);
-
-    // the POV camera
     private Camera camera;
-
-    private Shader structureShader;
-
-    // renderers to use
+    private Shader shader;
     private Renderer renderer;
-
-    // the position of the light source
-    private Vector3f lightPosition = new Vector3f(0, 0, 0);
-
-    // objects to render
-
-    // structures
-    private MaterialStructure material;
-    private LightStructure light;
+    private Vector3f lightPosition = new Vector3f(0, 100f, 0);
+    private Body sun, planet;
 
     public static void main(String[] args) {
         new Main().start();
@@ -41,66 +26,45 @@ public class Main implements Runnable {
 
     public void start() {
         Thread main = new Thread(this, "Solar");
-
-        // start the thread
         main.start();
     }
 
+    @Override
     public void run() {
-        // initialize
         init();
-
-        // application run loop
         while (!window.shouldClose()) {
             update();
             render();
         }
-
-        // clean up
-        close();
     }
 
-    private void init() {
+    public void init() {
         window.create();
-
-        structureShader = new Shader(
-                "shaders/structured/vertex.glsl",
-                "shaders/structured/fragment.glsl"
-        );
-
-        // initialize renderers
+        shader = new Shader(
+                "shaders/default/vertex.glsl",
+                "shaders/default/fragment.glsl"
+        ).create();
         renderer = new Renderer(window, lightPosition);
-
-        // initialize camera
-        camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), input);
-        camera.setFocus(new Vector3f(0, 0, 0));
-
-        // initialize objects
-        light = new LightStructure(lightPosition, new Vector3f(1.0f), 0.3f);
-        material = new MaterialStructure(32, 1, 1);
+        camera = new Camera(new Vector3f(0), new Vector3f(0), input);
+        camera.setFocus(new Vector3f(0));
+        sun = new Body(new Vector3f(0), new Vector3f(0), 10000, 10);
+        planet = new Body(new Vector3f(30, 0, 0), new Vector3f(0, 0, 0.8f), 100, 0.5f);
     }
 
-    private void update() {
+    public void update() {
         window.update();
-
-        // clear the screen and mask bits
         GL46.glClearColor(window.r, window.g, window.b, 1.0f);
         GL46.glClear(GL46.GL_COLOR_BUFFER_BIT | GL46.GL_DEPTH_BUFFER_BIT);
-
-        camera.update();
-        window.setMouseState(true);
+        Vector3f force = Body.calculateForce(sun, planet);
+        planet.applyForce(force);
+        planet.update();
+        sun.update();
+        camera.updateArcball();
     }
 
-    private void render() {
-
-        // swap the frame buffers
+    public void render() {
+        renderer.renderMesh(sun.getSphere(), camera, shader, Renderer.COLOR);
+        renderer.renderMesh(planet.getSphere(), camera, shader, Renderer.COLOR);
         window.swapBuffers();
     }
-
-    private void close() {
-        // release things
-        window.destroy();
-        structureShader.destroy();
-    }
-
 }

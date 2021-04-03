@@ -304,6 +304,28 @@ public class Vector3f {
     }
 
     /**
+     * divides the components of this vector
+     * @param d - the division factor for each component
+     * @return - this vector
+     */
+    public Vector3f divide(float d) {
+        this.x /= d;
+        this.y /= d;
+        this.z /= d;
+        return this;
+    }
+
+    /**
+     * divides the components of a vector
+     * @param v - the vector
+     * @param d - the division factor
+     * @return - the new vector, v/d
+     */
+    public static Vector3f divide(Vector3f v, float d) {
+        return Vector3f.divide(new Vector3f(v), new Vector3f(d));
+    }
+
+    /**
      * divides the components of this vector by the components of another vector
      * @param v - the other vector
      * @return - this vector

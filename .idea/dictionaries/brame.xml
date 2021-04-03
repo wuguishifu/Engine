@@ -4,10 +4,12 @@
       <w>attribs</w>
       <w>bitangent</w>
       <w>bitangents</w>
+      <w>coeff</w>
       <w>coord</w>
       <w>coords</w>
       <w>framerate</w>
       <w>glfw</w>
+      <w>grav</w>
       <w>shaders</w>
     </words>
   </dictionary>

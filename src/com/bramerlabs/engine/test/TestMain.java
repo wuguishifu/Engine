@@ -176,7 +176,6 @@ public class TestMain implements Runnable {
         // update the camera
 //        camera.updateArcball();
         camera.update();
-        window.setMouseState(true);
     }
 
     /**
