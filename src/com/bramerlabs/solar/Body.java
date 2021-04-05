@@ -16,7 +16,7 @@ public class Body {
     private float radius;
 
     // the universal gravitational constant
-    private static final float G = 0.000010f;
+    private static final float G = 0.00000010f;
 
     // the sphere used for rendering this planet
     private Sphere sphere;
