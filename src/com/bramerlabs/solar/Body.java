@@ -16,7 +16,7 @@ public class Body {
     private float radius;
 
     // the universal gravitational constant
-    private static final float G = 0.00010f;
+    private static final float G = 0.000010f;
 
     // the sphere used for rendering this planet
     private Sphere sphere;
@@ -31,7 +31,6 @@ public class Body {
         Vector3f r = Vector3f.subtract(b2.position, b1.position);
         float radius = Vector3f.length(r);
         r = Vector3f.normalize(r);
-
         float gravCoeff = (-G * b1.mass * b2.mass) / (radius * radius);
         return Vector3f.scale(r, gravCoeff);
     }

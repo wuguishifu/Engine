@@ -47,8 +47,8 @@ public class Main implements Runnable {
         renderer = new Renderer(window, lightPosition);
         camera = new Camera(new Vector3f(0), new Vector3f(0), input);
         camera.setFocus(new Vector3f(0));
-        sun = new Body(new Vector3f(-2, 0, 0), new Vector3f(0, 0, -0.1f), 1000, 0.5f);
-        planet = new Body(new Vector3f(2, 0, 0), new Vector3f(0, 0, 0.1f), 1000, 0.5f);
+        sun = new Body(new Vector3f(-2, 0, 0), new Vector3f(0, 0, 0), 10000, 0.5f);
+        planet = new Body(new Vector3f(2, 0, 0), new Vector3f(0, 0, 0.1f), 1000, 0.1f);
     }
 
     public void update() {
@@ -58,7 +58,7 @@ public class Main implements Runnable {
         Vector3f force = Body.calculateForce(sun, planet);
         planet.applyForce(force);
         force = Body.calculateForce(planet, sun);
-        sun.applyForce(force);
+//        sun.applyForce(force);
         planet.update();
         sun.update();
         camera.updateArcball();
