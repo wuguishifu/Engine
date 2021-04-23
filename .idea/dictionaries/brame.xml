@@ -11,6 +11,7 @@
       <w>glfw</w>
       <w>grav</w>
       <w>shaders</w>
+      <w>unrendered</w>
     </words>
   </dictionary>
 </component>
