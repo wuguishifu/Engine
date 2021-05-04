@@ -520,6 +520,26 @@ public class Vector3f {
     }
 
     /**
+     * maximizes all the values of this vector to be over a specific value
+     * @param min - the minimum value
+     */
+    public void maximize(float min) {
+        this.x = Math.max(min, this.x);
+        this.y = Math.max(min, this.y);
+        this.z = Math.max(min, this.z);
+    }
+
+    /**
+     * minimizes all the values of this vector to be under a specific value
+     * @param max - the maximum value
+     */
+    public void minimize(float max) {
+        this.x = Math.min(max, this.x);
+        this.y = Math.min(max, this.y);
+        this.z = Math.min(max, this.z);
+    }
+
+    /**
      * getter method
      * @return - the x component of this vector
      */
