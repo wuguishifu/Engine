@@ -184,8 +184,8 @@ public class TestMain implements Runnable {
         sphere2.setPosition(Matrix4f.multiply(rotation2, new Vector4f(sphere2.getPosition(), 1.0f)).xyz());
 
         // update the camera
-//        camera.updateArcball();
-        camera.update();
+        camera.updateArcball();
+//        camera.update();
     }
 
     /**
