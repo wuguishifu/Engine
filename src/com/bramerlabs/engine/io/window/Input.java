@@ -256,12 +256,28 @@ public class Input {
     }
 
     /**
+     * getter method
+     * @return - the array of booleans corresponding to different keyboard buttons
+     */
+    public boolean[] getKeysDown() {
+        return keys;
+    }
+
+    /**
      * checks if a mouse button is currently down
      * @param button - the button to check
      * @return - true if the button is currently down
      */
     public boolean isMouseButtonDown(int button) {
         return buttons[button];
+    }
+
+    /**
+     * getter method
+     * @return - the array of booleans corresponding to different mouse buttons
+     */
+    public boolean[] getButtonsDown() {
+        return buttons;
     }
 
     /**

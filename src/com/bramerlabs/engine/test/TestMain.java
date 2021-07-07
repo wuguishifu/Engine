@@ -14,6 +14,7 @@ import com.bramerlabs.engine.objects.default_objects.Box;
 import com.bramerlabs.engine.objects.shapes.shapes_3d.Cube;
 import com.bramerlabs.engine.objects.shapes.shapes_3d.Cylinder;
 import com.bramerlabs.engine.objects.shapes.shapes_3d.Sphere;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL46;
 
 public class TestMain implements Runnable {
@@ -42,6 +43,9 @@ public class TestMain implements Runnable {
     private MaterialStructure material;
     private LightStructure light;
     private Cylinder cylinder;
+
+    private boolean[] keysDown;
+    private boolean[] keysDownOld;
 
     /**
      * the main runnable method
@@ -157,6 +161,10 @@ public class TestMain implements Runnable {
                 0.3f
         );
         material = new MaterialStructure(32, 1, 1);
+
+        // initialize the key callbacks
+        keysDown = new boolean[GLFW.GLFW_KEY_LAST];
+        keysDownOld = new boolean[GLFW.GLFW_KEY_LAST];
     }
 
     Matrix4f rotation11 = Matrix4f.rotate(5, new Vector3f(0, 1, 0));
@@ -186,6 +194,20 @@ public class TestMain implements Runnable {
         // update the camera
         camera.updateArcball();
 //        camera.update();
+
+        // rising edge button input
+        if (keysDown[GLFW.GLFW_KEY_P] && !keysDownOld[GLFW.GLFW_KEY_P]) {
+            System.out.println("Rising edge P");
+        }
+
+        // falling edge button input
+        if (!keysDown[GLFW.GLFW_KEY_Q] && keysDownOld[GLFW.GLFW_KEY_Q]) {
+            System.out.println("Falling edge Q");
+        }
+
+        // use key buttons - last
+        System.arraycopy(keysDown, 0, keysDownOld, 0, keysDown.length);
+        System.arraycopy(input.getKeysDown(), 0, keysDown, 0, input.getKeysDown().length);
     }
 
     /**
