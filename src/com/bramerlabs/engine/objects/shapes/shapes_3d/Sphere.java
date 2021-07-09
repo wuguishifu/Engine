@@ -29,6 +29,10 @@ public class Sphere extends RenderObject {
         super(mesh, position, rotation, scale);
     }
 
+    public Sphere(Vector3f position, Vector4f color, float radius) {
+        super(generateMesh(color, radius), position, new Vector3f(0), new Vector3f(1));
+    }
+
     /**
      * create a sphere
      * @return - a new sphere
