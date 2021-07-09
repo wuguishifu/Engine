@@ -7,6 +7,7 @@ import com.bramerlabs.engine.graphics.structures.MaterialStructure;
 import com.bramerlabs.engine.io.window.Window;
 import com.bramerlabs.engine.math.matrix.Matrix4f;
 import com.bramerlabs.engine.math.vector.Vector3f;
+import com.bramerlabs.engine.math.vector.Vector4f;
 import com.bramerlabs.engine.objects.RenderObject;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
@@ -60,6 +61,11 @@ public class Renderer {
                 renderShadeColorMesh(object, camera, shader);
                 break;
         }
+    }
+
+    public void renderInstancedMesh(RenderObject object, Vector3f position, Vector3f rotation, Vector3f scale,
+                                    Vector4f color, Camera camera, Shader shader) {
+
     }
 
     public void renderStructuredMesh(RenderObject object, Camera camera, Shader shader, MaterialStructure material, LightStructure light) {
@@ -116,7 +122,7 @@ public class Renderer {
      * @param camera - the camera perspective
      * @param shader - the shader to use to render
      */
-    private void renderShadeColorMesh(RenderObject object, Camera camera, Shader shader) {
+    public void renderShadeColorMesh(RenderObject object, Camera camera, Shader shader) {
         // bind the vertex array object
         GL30.glBindVertexArray(object.getMesh().getVAO());
 
@@ -165,7 +171,7 @@ public class Renderer {
      * @param camera - the camera perspective
      * @param shader - the shader to use to render
      */
-    private void renderPlainColorMesh(RenderObject object, Camera camera, Shader shader) {
+    public void renderPlainColorMesh(RenderObject object, Camera camera, Shader shader) {
         // bind the vertex array object
         GL30.glBindVertexArray(object.getMesh().getVAO());
 
@@ -207,7 +213,7 @@ public class Renderer {
      * @param camera - the camera perspective
      * @param shader - the shader to use to render
      */
-    private void renderTextureMesh(RenderObject object, Camera camera, Shader shader) {
+    public void renderTextureMesh(RenderObject object, Camera camera, Shader shader) {
         // bind the vertex array object
         GL30.glBindVertexArray(object.getMesh().getVAO());
 
